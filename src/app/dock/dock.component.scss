@@ -1,0 +1,28 @@
+@import '../../styles/_variables';
+
+.dock-wrapper {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-align: center;
+
+  .dock-content {
+    padding: 5px 10px 10px;
+    background: transparentize($mediumGrey, .2);
+    border-radius: 3px 0 0 3px;
+    display: inline-block;
+
+    a {
+      text-decoration: none;
+      margin: 0 7px;
+
+      color: $primaryBlue;
+
+      &:visited {
+        color: $primaryBlue;
+      }
+    }
+    
+  }
+}

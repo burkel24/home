@@ -3,8 +3,12 @@
 $controlSize: 12px;
 $windowRadius: 3px;
 
+.page-content {
+  height: 100vh;
+}
+
 .desktop {
-  position: relative;;
+  position: relative;
 }
 
 .app-window {

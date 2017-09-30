@@ -5,12 +5,14 @@
     </div>
 
     <div class="nav-item">
-      <!-- <strong>{{ title }}</strong> -->
       {{ title}}<i class="fa fa-caret-down"></i>
     </div>
   </div>
 
   <div class="flex-row">
+    <div class="nav-item">
+      <i class="fa fa-wifi"></i>
+    </div>
     <div class="nav-item">
       <span class="battery-percent">{{ batteryPercent }}%</span>
       <i class="fa" [ngClass]="batteryIconClass"></i>
