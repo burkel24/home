@@ -1,0 +1,14 @@
+@import '../../styles/_variables';
+
+.app-nav {
+  padding: 5px 15px;
+  background: $lightGrey;
+
+  .logo {
+    margin: 0 5px;
+  }
+
+  .nav-item {
+    margin: 0 10px;
+  }
+}

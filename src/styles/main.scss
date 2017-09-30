@@ -1,0 +1,12 @@
+@import '_variables';
+
+body {
+  background: $lightBlue;
+  padding: 0;
+  margin: 0;
+}
+
+* {
+  font-family: "Helvetica Neue";
+  box-sizing: border-box;
+}
