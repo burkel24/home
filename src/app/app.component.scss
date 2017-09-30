@@ -42,6 +42,7 @@ $windowRadius: 3px;
   }
 
   @media(max-width: $mobileMaxWidth) {
+    box-shadow: $mobileShadow;
     width: 100%;
     left: 0;
     margin-left: 0;

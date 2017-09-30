@@ -1,7 +1,7 @@
 @import '../../styles/_variables';
 
 .app-nav {
-  padding: 5px 15px;
+  padding: 5px 10px;
   background: $lightGrey;
 
   .logo {
@@ -10,13 +10,21 @@
 
   .nav-item {
     margin: 0 10px;
+
+    i {
+      margin-left: 5px;
+    }
   }
 
-  .battery-percent {
-    font-size: 11px;
-    line-height: 12px;
-    padding-top: 4px;
-    vertical-align: top;
-    display: inline-block;
+  @media(max-width: $mobileMaxWidth) {
+    padding: 3px 5px;
+
+    .nav-item {
+      margin: 0 7px;
+
+      i {
+        margin-left: 3px;
+      }
+    }
   }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
+import * as moment from 'moment';
 
 const BATTERY_DECAY_INTERVAL_MS = 2500;
 
@@ -47,5 +48,9 @@ export class NavbarComponentComponent implements OnInit {
     }
 
     return 'fa-battery';
+  }
+
+  get time() {
+    return moment(Date.now()).format('ddd h:mm A');
   }
 }
