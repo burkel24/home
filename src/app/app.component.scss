@@ -40,4 +40,11 @@ $windowRadius: 3px;
       }
     }
   }
+
+  @media(max-width: $mobileMaxWidth) {
+    width: 100%;
+    left: 0;
+    margin-left: 0;
+    top: 50px;
+  }
 }
