@@ -1,0 +1,12 @@
+@import '../../styles/_variables';
+
+.terminal {
+  background: $white;
+  min-height: 300px;
+  width: 500px;
+  padding: 10px;
+
+  .entry {
+    margin: 0 0 5px 0;
+  }
+}
