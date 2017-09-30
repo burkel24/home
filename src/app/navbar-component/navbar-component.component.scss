@@ -1,14 +1,30 @@
 @import '../../styles/_variables';
 
 .app-nav {
-  padding: 5px 15px;
+  padding: 5px 10px;
   background: $lightGrey;
 
   .logo {
-    margin: 0 5px;
+    margin: 0 10px;
   }
 
   .nav-item {
-    margin: 0 10px;
+    margin: 0 7px;
+
+    .fa-caret-down {
+      margin-left: 5px;
+    }
+  }
+
+  @media(max-width: $mobileMaxWidth) {
+    padding: 3px 5px;
+
+    .nav-item {
+      margin: 0 7px;
+
+      i {
+        margin-left: 3px;
+      }
+    }
   }
 }

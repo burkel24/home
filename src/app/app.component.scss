@@ -3,8 +3,12 @@
 $controlSize: 12px;
 $windowRadius: 3px;
 
+.page-content {
+  height: 100vh;
+}
+
 .desktop {
-  position: relative;;
+  position: relative;
 }
 
 .app-window {
@@ -39,5 +43,13 @@ $windowRadius: 3px;
         background: green;
       }
     }
+  }
+
+  @media(max-width: $mobileMaxWidth) {
+    box-shadow: $mobileShadow;
+    width: 100%;
+    left: 0;
+    margin-left: 0;
+    top: 50px;
   }
 }
