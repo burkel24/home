@@ -3,6 +3,15 @@
   flex-direction: row;
 }
 
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
 .justify-space-between {
   justify-content: space-between;
+}
+
+.grow-1 {
+  flex-grow: 1;
 }

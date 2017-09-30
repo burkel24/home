@@ -1,2 +1,14 @@
-<app-navbar></app-navbar>
-<router-outlet></router-outlet>
+<div class="flex-col">
+  <app-navbar></app-navbar>
+
+  <div class="desktop grow-1">
+    <div class="app-window">
+      <div class="top-bar flex-row">
+        <span class="window-control close"></span>
+        <span class="window-control minimize"></span>
+        <span class="window-control fullscreen"></span>
+      </div>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
