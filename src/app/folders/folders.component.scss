@@ -1,0 +1,26 @@
+@import '../../styles/_variables';
+
+.folders {
+  margin: 25px;
+  display: inline-block;
+
+  .folder {
+    .fa-folder-open-o {
+      display: none;
+    }
+
+    &.active {
+      .fa-folder-open-o {
+        display: inline-block;
+      }
+
+      .fa-folder-o {
+        display: none;
+      }
+    }
+
+    &:not(.active) {
+      cursor: pointer;
+    }
+  }  
+}

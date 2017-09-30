@@ -5,13 +5,15 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { NavbarComponentComponent } from './navbar-component/navbar-component.component';
 import { DockComponent } from './dock/dock.component';
+import { FoldersComponent } from './folders/folders.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponentComponent,
-    DockComponent
+    DockComponent,
+    FoldersComponent
   ],
   imports: [
     AppRoutingModule,

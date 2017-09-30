@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import * as moment from 'moment';
 
-const BATTERY_DECAY_INTERVAL_MS = 2500;
+const BATTERY_DECAY_INTERVAL_MS = 5000;
 
 @Component({
   selector: 'app-navbar',
@@ -14,7 +14,8 @@ export class NavbarComponentComponent implements OnInit {
   public batteryPercent = 100;
 
   private urlMap = {
-    '/': 'Terminal'
+    '/': 'Terminal',
+    '/projects': 'Projects'
   };
 
   constructor(

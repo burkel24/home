@@ -7,6 +7,7 @@ body {
 }
 
 * {
+  color: $primaryBlue;
   font-family: "Helvetica Neue";
   font-weight: 400;
   box-sizing: border-box;
@@ -14,4 +15,13 @@ body {
 
 strong {
   font-weight: 500;
+}
+
+a {
+  text-decoration: none;
+  color: $primaryBlue;
+
+  &:visited {
+    color: $primaryBlue;
+  }
 }
