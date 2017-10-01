@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { WindowManagerService, WindowState } from '../window-manager.service';
 
 @Component({
-  selector: 'window',
+  selector: 'app-window',
   templateUrl: './window.component.html',
   styleUrls: ['./window.component.scss']
 })

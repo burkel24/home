@@ -1,4 +1,9 @@
-<div class="app-window">
+<div class="app-window"
+     [style.top]="state.top + 'px'"
+     [style.left]="state.left + 'px'"
+     [style.bottom]="state.bottom + 'px'"
+     [style.right]="state.right + 'px'"
+     [style.zIndex]="state.zIndex">
   <div class="top-bar flex-row">
     <div class="window-control close"></div>
     <div class="window-control minimize"></div>

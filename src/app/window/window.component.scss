@@ -7,9 +7,6 @@ $windowRadius: 3px;
   border-radius: $windowRadius;
   overflow: hidden;
   position: absolute;
-  top: 150px;
-  left: 50%;
-  margin-left: -250px;
   box-shadow: $shadow;
 
   .top-bar {
