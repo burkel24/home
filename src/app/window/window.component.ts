@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, ElementRef, OnInit, HostListener, Input, NgZone } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
 import { WindowManagerService, WindowState } from '../window-manager.service';
@@ -11,40 +11,28 @@ import { WindowManagerService, WindowState } from '../window-manager.service';
 export class WindowComponent implements OnInit {
   private stateSubscription: Subscription;
   private state: WindowState;
+  private isDragging = false;
+  private lastDragCoordinates;
+  private window;
   @Input() title: string;
 
   constructor(
-    private windowManager: WindowManagerService
+    private ElementRef: ElementRef,
+    private windowManager: WindowManagerService,
+    private zone: NgZone
   ) { }
 
   ngOnInit() {
     this.stateSubscription = this.windowManager.registerWindow(state => {
-      if (this.state && state.isMinimized !== this.state.isMinimized) {
-        if (state.isMinimized) {
-          this.doMinimize();
-        } else {
-          this.doMaximize();
-        }
-      }
+      // if (this.state && state.isMinimized !== this.state.isMinimized) {
+      //   if (state.isMinimized) {
+      //     // this.doMinimize();
+      //   } else {
+      //     // this.doMaximize();
+      //   }
+      // }
 
       this.state = state;
     });
-  }
-
-  requestMinimze() {
-
-  }
-
-  doMinimize() {
-
-  }
-
-
-  requestMaximize() {
-
-  }
-
-  doMaximize() {
-
   }
 }

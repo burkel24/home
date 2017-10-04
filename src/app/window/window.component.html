@@ -1,10 +1,10 @@
 <div class="app-window"
      [style.top]="state.top + 'px'"
-     [style.left]="state.left + 'px'"
      [style.bottom]="state.bottom + 'px'"
-     [style.right]="state.right + 'px'"
-     [style.zIndex]="state.zIndex">
-  <div class="top-bar flex-row">
+     [style.left]="state.left + 'px'"
+     [style.right]="state.right + 'px'">
+  <div class="top-bar flex-row"
+       [id]="state.id">
     <div class="window-control close"></div>
     <div class="window-control minimize"></div>
     <div class="window-control fullscreen"></div>

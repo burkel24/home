@@ -9,6 +9,10 @@ $windowRadius: 3px;
   position: absolute;
   box-shadow: $shadow;
 
+  &.draggable-source--is-dragging {
+    visibility: hidden;
+  }
+
   .top-bar {
     background: $mediumGrey;
 
