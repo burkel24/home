@@ -1,0 +1,48 @@
+@import '../../styles/_variables';
+
+$controlSize: 12px;
+$windowRadius: 3px;
+
+.app-window {
+  border-radius: $windowRadius;
+  overflow: hidden;
+  position: absolute;
+  box-shadow: $shadow;
+
+  &.draggable-source--is-dragging {
+    visibility: hidden;
+  }
+
+  .top-bar {
+    background: $mediumGrey;
+
+    .window-control {
+      user-select: none;
+      height: $controlSize;
+      width: $controlSize;
+      border-radius: $controlSize + 8;
+      margin: 5px 3px;
+      cursor: pointer;
+
+      &.close {
+        background: red;
+      }
+
+      &.minimize {
+        background: yellow;
+      }
+
+      &.fullscreen {
+        background: green;
+      }
+    }
+  }
+
+  @media(max-width: $mobileMaxWidth) {
+    box-shadow: $mobileShadow;
+    width: 100%;
+    left: 0;
+    margin-left: 0;
+    top: 100px;
+  }
+}

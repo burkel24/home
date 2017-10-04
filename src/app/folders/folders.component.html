@@ -1,0 +1,11 @@
+<div class="folders">
+  <div class="folder" 
+       [ngClass]="{'active': isActive('/projects')}" 
+       (click)="open('/projects')">
+    <span class="flex-col align-items-center">
+      <i class="fa fa-folder-open-o fa-2x"></i>
+      <i class="fa fa-folder-o fa-2x"></i>
+      <span>Projects</span>
+    </span>
+  </div>
+</div>

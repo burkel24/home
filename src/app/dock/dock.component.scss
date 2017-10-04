@@ -2,6 +2,7 @@
 
 .dock-wrapper {
   position: absolute;
+  z-index: 999;
   left: 0;
   right: 0;
   bottom: 0;
@@ -14,15 +15,7 @@
     display: inline-block;
 
     a {
-      text-decoration: none;
       margin: 0 7px;
-
-      color: $primaryBlue;
-
-      &:visited {
-        color: $primaryBlue;
-      }
     }
-    
   }
 }
