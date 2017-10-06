@@ -5,6 +5,8 @@ import { ApplicationBase } from '../applicationBase';
 import { WindowContentHostDirective } from '../window/windowContentHost.directive';
 import { WindowManagerService, WindowState } from '../window-manager.service';
 
+const RETRY_INTERVAL_MS = 200;
+
 @Component({
   selector: 'app-window',
   templateUrl: './window.component.html',
@@ -27,7 +29,15 @@ export class WindowComponent implements OnChanges, OnInit {
   ngOnChanges(changes) {
     if (!changes.app) { return; }
 
-    const factory = this.resolver.resolveComponentFactory(changes.app.currentValue),
+    this.trySetComponent(changes.app.currentValue);
+  }
+
+  trySetComponent(appType) {
+    if (!this.contentHost) {
+      return setTimeout(() => this.trySetComponent(appType), RETRY_INTERVAL_MS)
+    }
+
+    const factory = this.resolver.resolveComponentFactory(appType),
       hostViewRef = this.contentHost.viewContainerRef;
 
     hostViewRef.clear();
@@ -36,14 +46,6 @@ export class WindowComponent implements OnChanges, OnInit {
 
   ngOnInit() {
     this.stateSubscription = this.windowManager.registerWindow(state => {
-      // if (this.state && state.isMinimized !== this.state.isMinimized) {
-      //   if (state.isMinimized) {
-      //     // this.doMinimize();
-      //   } else {
-      //     // this.doMaximize();
-      //   }
-      // }
-
       this.state = state;
     });
   }

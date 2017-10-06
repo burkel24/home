@@ -7,19 +7,11 @@ const UPDATE_THROTTLE_WINDOW_MS = 50;
 
 @Injectable()
 export class WindowManagerService {
-  private stateSubject = new BehaviorSubject<{ [key: number]: WindowState }>({});
+  private stateSubject = new BehaviorSubject<WindowStore>(new Map());
   private container;
   private lastUpdateTime: number;
 
   constructor() { }
-
-  static boundsCheck(windowBox, containerBox, dx, dy) {
-    if (windowBox.top + dx < containerBox.top) { return; }
-    if (windowBox.bottom + dx > containerBox.bottom) { return; }
-    if (windowBox.left + dy < 0) { return; }
-    if (windowBox.right + dy > containerBox.right) { return; }
-    return true;
-  }
 
   static snapToContainer(window, container) {
     let { top, bottom, left, right } = window;
@@ -52,10 +44,10 @@ export class WindowManagerService {
   }
 
   registerWindow(onUpdate: (WindowState) => void): Subscription {
-    const id = Math.floor(Date.now() * Math.random());
-    const lastValue = this.stateSubject.getValue();
+    const id = Math.floor(Date.now() * Math.random()).toString();
+    const store = this.stateSubject.getValue();
 
-    lastValue[id] = {
+    store.set(id, {
       id,
       zIndex: 1,
       isMinimized: false,
@@ -63,13 +55,13 @@ export class WindowManagerService {
       bottom: 50,
       left: 50,
       right: 50
-    };
+    });
 
-    this.stateSubject.next(lastValue);
+    this.stateSubject.next(store);
 
     let previousState = null;
     return this.stateSubject.asObservable()
-      .map(state => state[id])
+      .map(state => state.get(id))
       .filter(state => {
         if (state !== previousState) {
           previousState = state;
@@ -93,32 +85,54 @@ export class WindowManagerService {
     .on('drag:start', evt => targetId = evt.originalEvent.target.id)
     .on('drag:move', evt => containerElm = evt.sourceContainer)
     .on('drag:stop', evt => {
-      const lastValue = this.stateSubject.getValue(),
-        state = lastValue[targetId];
+      const store = this.stateSubject.getValue(),
+        state = store.get(targetId);
 
       if (!state || !containerElm) { return; }
 
       const containerBox = containerElm.getBoundingClientRect(),
         snappedBox = WindowManagerService.snapToContainer(evt.mirror.getBoundingClientRect(), containerBox);
 
-      lastValue[targetId] =  Object.assign({}, state, {
+      store.set(targetId, Object.assign({}, state, {
         top: snappedBox.top - containerBox.top,
         bottom: containerBox.bottom - snappedBox.bottom,
         left: snappedBox.left - containerBox.left,
         right: containerBox.right - snappedBox.right
-      });
+      }));
 
-      this.stateSubject.next(lastValue);
+      this.stateSubject.next(store);
       containerElm = null;
       targetId = '';
     });
   }
+
+  toggleMinimize(windowId, doMinimze=true) {
+    const store = this.stateSubject.getValue(),
+      window = store.get(windowId);
+
+    if (!window) { return; }
+
+    const lastMinimizeState = window.isMinimized;
+    if (lastMinimizeState === doMinimze) { return; }
+
+    window.isMinimized = doMinimze;
+    store.set(windowId, Object.assign({}, window));
+    this.stateSubject.next(store);
+  }
+
+  get list() {
+    return this.stateSubject
+      .asObservable()
+      .map(state => Array.from(state.values()))
+  }
 }
+
+declare interface WindowStore extends Map<string, WindowState> { }
 
 export interface WindowState {
   zIndex: number;
   isMinimized: boolean;
-  id: number;
+  id: string;
   top: number;
   bottom: number;
   left: number;
