@@ -2,6 +2,8 @@
 
 $controlSize: 12px;
 $windowRadius: 3px;
+$topBarHeight: 22px;
+$resizeHandleDimension: 15px;
 
 .app-window {
   border-radius: $windowRadius;
@@ -15,6 +17,7 @@ $windowRadius: 3px;
 
   .top-bar {
     background: $mediumGrey;
+    height: $topBarHeight;
 
     .window-control {
       user-select: none;
@@ -35,6 +38,33 @@ $windowRadius: 3px;
       &.fullscreen {
         background: green;
       }
+    }
+  }
+
+  .handle {
+    position: absolute;
+    background: blue;
+    z-index: 10;
+
+    &.handle-right {
+      top: 0;
+      right: 0;
+      bottom: $resizeHandleDimension;
+      width: $resizeHandleDimension;
+    }
+
+    &.handle-bottom {
+      bottom: 0;
+      left: 0;
+      right: $resizeHandleDimension;
+      height: $resizeHandleDimension;
+    }
+
+    &.handle-corner {
+      bottom: 0;
+      right: 0;
+      width: $resizeHandleDimension;
+      height: $resizeHandleDimension;
     }
   }
 

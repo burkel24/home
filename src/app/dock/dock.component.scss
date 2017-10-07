@@ -1,14 +1,20 @@
 @import '../../styles/_variables';
 
+$dockHeight: 75px;
+
 .dock-wrapper {
   position: absolute;
   z-index: 999;
   left: 0;
   right: 0;
-  bottom: 0;
+  bottom: -$dockHeight;
   text-align: center;
 
   .dock-content {
+    position: relative;
+    top: -$dockHeight;
+    height: $dockHeight;
+    margin-top: -$dockHeight;
     padding: 5px 10px 10px;
     background: transparentize($mediumGrey, .2);
     border-radius: 3px 0 0 3px;

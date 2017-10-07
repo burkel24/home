@@ -1,10 +1,12 @@
 <div class="app-window"
      *ngIf="state"
-     [style.top]="state.top + 'px'"
-     [style.bottom]="state.bottom + 'px'"
-     [style.left]="state.left + 'px'"
-     [style.right]="state.right + 'px'">
+     [style.top]="top"
+     [style.bottom]="bottom"
+     [style.left]="left"
+     [style.right]="right"
+     #appWindow>
   <div class="top-bar flex-row"
+
        [id]="state.id">
     <div class="window-control close"></div>
     <div class="window-control minimize"></div>
@@ -12,4 +14,15 @@
   </div>
 
   <ng-template window-content-host></ng-template>
+
+  <div class="handle handle-right" 
+       (mousedown)="onResizeStart($event, false, true)">
+     
+   </div>
+  <div class="handle handle-bottom" 
+       (mousedown)="onResizeStart($event, true)">
+  </div>
+  <div class="handle handle-corner" 
+       (mousedown)="onResizeStart($event)">
+  </div>
 </div>
