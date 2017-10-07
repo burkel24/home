@@ -54,6 +54,10 @@ export class WindowComponent implements OnChanges, OnInit {
     });
   }
 
+  focusWindow() {
+    this.windowManager.focusWindow(this.state.id);
+  }
+
   get top() {
     if (!this.state) { return; }
     return `${this.tempState ? this.tempState.top : this.state.top }px`;
@@ -107,6 +111,8 @@ export class WindowComponent implements OnChanges, OnInit {
 
   @HostListener('document:mouseup', [])
   onMouseUp() {
+    if (!this.tempState) { return; }
+
     this.tempState = null;
     this.lastMouseCoords = null;
   }

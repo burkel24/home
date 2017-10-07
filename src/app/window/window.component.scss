@@ -19,6 +19,7 @@ $resizeHandleDimension: 15px;
     background: $mediumGrey;
     height: $topBarHeight;
     cursor: move;
+    z-index: 3;
     opacity: .9;
 
     .window-control {
@@ -79,7 +80,6 @@ $resizeHandleDimension: 15px;
     bottom: 0;
     left: 0;
     right: 0;
-    z-index: 3;
   }
 
   @media(max-width: $mobileMaxWidth) {

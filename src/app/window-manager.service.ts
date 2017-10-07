@@ -59,6 +59,7 @@ export class WindowManagerService {
     });
 
     this.stateSubject.next(store);
+    this.focusWindow(id);
 
     let previousState = null;
     return this.stateSubject.asObservable()
@@ -83,7 +84,10 @@ export class WindowManagerService {
       classes: ['dragging'],
       handle: '.top-bar'
     })
-    .on('drag:start', evt => targetId = evt.originalEvent.target.id)
+    .on('drag:start', evt => {
+      targetId = evt.originalEvent.target.id;
+      this.focusWindow(targetId);
+    })
     .on('drag:move', evt => containerElm = evt.sourceContainer)
     .on('drag:stop', evt => {
       const store = this.stateSubject.getValue(),
@@ -118,6 +122,36 @@ export class WindowManagerService {
 
     window.isMinimized = doMinimze;
     store.set(windowId, Object.assign({}, window));
+    this.stateSubject.next(store);
+  }
+
+  focusWindow(windowId) {
+    const store = this.stateSubject.getValue(),
+      window = store.get(windowId);
+
+    if (!window) { return; }
+
+    const sortedWindows = Array.from(store.values()).sort((a, b) => {
+      return a.zIndex < b.zIndex ? 1 : -1;
+    });
+
+    const windowIndex = sortedWindows.findIndex(
+      aWindow => aWindow.id === windowId
+    );
+
+    if (windowIndex !== sortedWindows.length - 1) {
+      window.zIndex = sortedWindows.length;
+
+      for (let i = sortedWindows.length - 1; i > windowIndex; i--) {
+        sortedWindows[i].zIndex = i;
+      }
+    } else if (window.zIndex != sortedWindows.length) {
+      for (let i = sortedWindows.length - 2; i >= 0; i--) {
+        sortedWindows[i].zIndex = i + 1;
+      }
+    }
+
+
     this.stateSubject.next(store);
   }
 
