@@ -18,7 +18,7 @@ export class DesktopComponent implements AfterViewInit, OnInit {
     private Router: Router,
     private TaskManagerService: TaskManagerService,
     private WindowManagerService: WindowManagerService
-  ) { 
+  ) {
     this.Router.events
       .filter(evt => evt instanceof NavigationEnd)
       .subscribe((evt: NavigationEnd) => {

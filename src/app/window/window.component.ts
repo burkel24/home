@@ -6,7 +6,6 @@ import { WindowContentHostDirective } from '../window/windowContentHost.directiv
 import { WindowManagerService, WindowState } from '../window-manager.service';
 
 const RETRY_INTERVAL_MS = 200;
-const MINIMUM_DIMENSION_PX = 75;
 
 @Component({
   selector: 'app-window',
@@ -39,7 +38,7 @@ export class WindowComponent implements OnChanges, OnInit {
 
   trySetComponent(appType) {
     if (!this.contentHost) {
-      return setTimeout(() => this.trySetComponent(appType), RETRY_INTERVAL_MS)
+      return setTimeout(() => this.trySetComponent(appType), RETRY_INTERVAL_MS);
     }
 
     const factory = this.resolver.resolveComponentFactory(appType),
@@ -75,7 +74,7 @@ export class WindowComponent implements OnChanges, OnInit {
     return `${this.tempState ? this.tempState.right : this.state.right }px`;
   }
 
-  onResizeStart(evt, lockX=false, lockY=false) {
+  onResizeStart(evt, lockX= false, lockY= false) {
     this.tempState = Object.assign({}, this.state);
     this.lockX = lockX;
     this.lockY = lockY;
@@ -97,27 +96,18 @@ export class WindowComponent implements OnChanges, OnInit {
     if (!dx && !dy) { return; }
 
     const elm = this.window.nativeElement;
-
-    if (dx && (elm.clientWidth + dx) >= MINIMUM_DIMENSION_PX) {
-      this.tempState.right -= dx;
-      elm.style.right = `${this.tempState.right}px`;
-    }
-
-    if (dy && (elm.clientHeight + dy) >= MINIMUM_DIMENSION_PX) {
-      this.tempState.bottom -= dy;
-      elm.style.bottom = `${this.tempState.bottom}px`;
-    }
+    this.tempState = Object.assign(
+      {},
+      this.tempState,
+      this.windowManager.resize(this.state.id, elm, dx, dy)
+    );
 
     this.lastMouseCoords = mouseCoords;
   }
 
   @HostListener('document:mouseup', [])
   onMouseUp() {
-    if (!this.tempState || !this.lastMouseCoords) { return; }
-
-    this.state = Object.assign({}, this.state, this.tempState);
     this.tempState = null;
-    // TODO update service
     this.lastMouseCoords = null;
   }
 }

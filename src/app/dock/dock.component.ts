@@ -7,7 +7,7 @@ import { WindowManagerService, WindowState } from '../window-manager.service';
   templateUrl: './dock.component.html',
   styleUrls: ['./dock.component.scss']
 })
-export class DockComponent implements OnInit { 
+export class DockComponent implements OnInit {
   minimizedWindows: WindowState[];
 
   constructor(
@@ -19,6 +19,6 @@ export class DockComponent implements OnInit {
       .map(windows => windows.filter(aWindow => aWindow.isMinimized))
       .subscribe(
         windows => this.minimizedWindows = windows
-      )
+      );
   }
 }

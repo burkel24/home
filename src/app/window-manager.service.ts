@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { Draggable } from '@shopify/draggable';
 
 const UPDATE_THROTTLE_WINDOW_MS = 50;
+const MINIMUM_DIMENSION_PX = 250;
 
 @Injectable()
 export class WindowManagerService {
@@ -106,7 +107,7 @@ export class WindowManagerService {
     });
   }
 
-  toggleMinimize(windowId, doMinimze=true) {
+  toggleMinimize(windowId, doMinimze= true) {
     const store = this.stateSubject.getValue(),
       window = store.get(windowId);
 
@@ -120,10 +121,38 @@ export class WindowManagerService {
     this.stateSubject.next(store);
   }
 
+  resize(windowId: string, elm, dx: number, dy: number): WindowState {
+    const store = this.stateSubject.getValue(),
+      window = store.get(windowId);
+
+    if (!window) { return; }
+
+    if (dx && (elm.clientWidth + dx) >= MINIMUM_DIMENSION_PX) {
+      if (window.right - dx >= 0) {
+        window.right -= dx;
+      } else {
+        window.right = 0;
+      }
+    }
+
+
+    if (dy && (elm.clientHeight + dy) >= MINIMUM_DIMENSION_PX) {
+      if (window.bottom - dy >= 0) {
+        window.bottom -= dy;
+      } else {
+        window.bottom = 0;
+      }
+    }
+
+    store.set(windowId, Object.assign({}, window));
+    this.stateSubject.next(store);
+    return window;
+  }
+
   get list() {
     return this.stateSubject
       .asObservable()
-      .map(state => Array.from(state.values()))
+      .map(state => Array.from(state.values()));
   }
 }
 

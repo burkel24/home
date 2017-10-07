@@ -13,7 +13,9 @@
     <div class="window-control fullscreen"></div>
   </div>
 
-  <ng-template window-content-host></ng-template>
+  <div class="content">
+    <ng-template window-content-host></ng-template>
+  </div>
 
   <div class="handle handle-right" 
        (mousedown)="onResizeStart($event, false, true)">

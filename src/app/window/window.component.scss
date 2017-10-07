@@ -18,8 +18,11 @@ $resizeHandleDimension: 15px;
   .top-bar {
     background: $mediumGrey;
     height: $topBarHeight;
+    cursor: move;
+    opacity: .9;
 
     .window-control {
+      opacity: 1;
       user-select: none;
       height: $controlSize;
       width: $controlSize;
@@ -43,14 +46,14 @@ $resizeHandleDimension: 15px;
 
   .handle {
     position: absolute;
-    background: blue;
     z-index: 10;
 
     &.handle-right {
-      top: 0;
+      top: $topBarHeight;
       right: 0;
       bottom: $resizeHandleDimension;
       width: $resizeHandleDimension;
+      cursor: col-resize;
     }
 
     &.handle-bottom {
@@ -58,6 +61,7 @@ $resizeHandleDimension: 15px;
       left: 0;
       right: $resizeHandleDimension;
       height: $resizeHandleDimension;
+      cursor: row-resize;
     }
 
     &.handle-corner {
@@ -65,7 +69,17 @@ $resizeHandleDimension: 15px;
       right: 0;
       width: $resizeHandleDimension;
       height: $resizeHandleDimension;
+      cursor: nwse-resize;
     }
+  }
+
+  .content {
+    position: absolute;
+    top: $topBarHeight;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 3;
   }
 
   @media(max-width: $mobileMaxWidth) {
