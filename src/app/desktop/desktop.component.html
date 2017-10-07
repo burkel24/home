@@ -1,5 +1,8 @@
 <div class="desktop">
   <app-folders></app-folders>
-  <app-terminal></app-terminal>
+  <!-- <app-terminal></app-terminal> -->
+  <div *ngFor="let task of tasks">
+    <app-window [app]="task.component"></app-window>
+  </div>
   <app-dock></app-dock>
 </div>

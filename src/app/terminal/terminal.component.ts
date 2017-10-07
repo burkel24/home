@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 
+import { ApplicationBase } from '../applicationBase';
+
 @Component({
   selector: 'app-terminal',
   templateUrl: './terminal.component.html',
   styleUrls: ['./terminal.component.scss']
 })
-export class TerminalComponent implements OnInit {
+export class TerminalComponent extends ApplicationBase implements OnInit {
   public output: string[] = [];
-
-  constructor() { }
 
   ngOnInit() {
     this.schedule('./burke.sh', 1);
