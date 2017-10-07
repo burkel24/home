@@ -78,6 +78,10 @@ export class WindowComponent implements OnChanges, OnInit {
     return `${this.tempState ? this.tempState.right : this.state.right }px`;
   }
 
+  maximize() {
+    this.windowManager.maximize(this.state.id);
+  }
+
   onResizeStart(evt, lockX= false, lockY= false) {
     this.tempState = Object.assign({}, this.state);
     this.lockX = lockX;

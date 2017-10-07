@@ -15,14 +15,14 @@ $resizeHandleDimension: 15px;
     visibility: hidden;
   }
 
-  .top-bar {
-    background: $mediumGrey;
+  .controls {
+    top: 0;
+    left: 0;
     height: $topBarHeight;
-    cursor: move;
-    z-index: 3;
-    opacity: .9;
+    position: absolute;
 
     .window-control {
+      display: inline-block;
       opacity: 1;
       user-select: none;
       height: $controlSize;
@@ -30,6 +30,7 @@ $resizeHandleDimension: 15px;
       border-radius: $controlSize + 8;
       margin: 5px 3px;
       cursor: pointer;
+      z-index: 4;
 
       &.close {
         background: red;
@@ -43,6 +44,14 @@ $resizeHandleDimension: 15px;
         background: green;
       }
     }
+  }
+
+  .top-bar {
+    background: $mediumGrey;
+    height: $topBarHeight;
+    cursor: move;
+    z-index: 3;
+    opacity: .9;
   }
 
   .handle {

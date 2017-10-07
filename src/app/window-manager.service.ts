@@ -155,6 +155,26 @@ export class WindowManagerService {
     this.stateSubject.next(store);
   }
 
+  maximize(windowId) {
+    const store = this.stateSubject.getValue(),
+      window = store.get(windowId);
+
+    if (!window) { return; }
+
+    store.set(windowId, Object.assign(
+      {},
+      window,
+      {
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0
+      }
+    ));
+
+    this.stateSubject.next(store);
+  }
+
   resize(windowId: string, elm, dx: number, dy: number): WindowState {
     const store = this.stateSubject.getValue(),
       window = store.get(windowId);

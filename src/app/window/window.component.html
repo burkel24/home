@@ -7,12 +7,12 @@
      [style.zIndex]="state.zIndex"
      (click)="focusWindow()"
      #appWindow>
-  <div class="top-bar flex-row"
+  <div class="top-bar" [id]="state.id"></div>
 
-       [id]="state.id">
+  <div class="controls">
     <div class="window-control close"></div>
     <div class="window-control minimize"></div>
-    <div class="window-control fullscreen"></div>
+    <div class="window-control fullscreen" (click)="maximize()"></div>
   </div>
 
   <div class="content">
