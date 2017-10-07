@@ -4,12 +4,18 @@ $controlSize: 12px;
 $windowRadius: 3px;
 $topBarHeight: 22px;
 $resizeHandleDimension: 15px;
+$minimizedDimension: 0;
+$minimizeTransitionTime: .25s;
+$minimizeTransitionType: ease;
 
 .app-window {
   border-radius: $windowRadius;
   overflow: hidden;
   position: absolute;
   box-shadow: $shadow;
+  bottom: auto;
+  transform: translate(0, 0);
+  transition: transform $minimizeTransitionTime $minimizeTransitionType;
 
   &.draggable-source--is-dragging {
     visibility: hidden;
@@ -86,9 +92,29 @@ $resizeHandleDimension: 15px;
   .content {
     position: absolute;
     top: $topBarHeight;
-    bottom: 0;
     left: 0;
-    right: 0;
+    width: 100%;
+    height: calc(100% - #{$topBarHeight});
+    // transition:  $minimizeTransitionTime $minimizeTransitionType;
+    transition: width $minimizeTransitionTime $minimizeTransitionType,
+                  height $minimizeTransitionTime $minimizeTransitionType;
+    overflow: hidden;
+  }
+
+
+  &.minimized {
+    box-shadow: none;
+    bottom: -50px;
+    transform: translate(50%, 100%);
+
+    .content {
+      height: $minimizedDimension; 
+      width: $minimizedDimension;
+    }
+
+    .controls, .top-bar {
+      visibility: hidden;
+    }
   }
 
   @media(max-width: $mobileMaxWidth) {

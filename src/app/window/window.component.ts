@@ -78,8 +78,17 @@ export class WindowComponent implements OnChanges, OnInit {
     return `${this.tempState ? this.tempState.right : this.state.right }px`;
   }
 
+  get zIndex() {
+    if (!this.state) { return; }
+    return this.state.isMinimized ? -1 : this.state.zIndex;
+  }
+
   maximize() {
     this.windowManager.maximize(this.state.id);
+  }
+
+  minimize() {
+    this.windowManager.minimize(this.state.id);
   }
 
   onResizeStart(evt, lockX= false, lockY= false) {

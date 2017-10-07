@@ -111,16 +111,22 @@ export class WindowManagerService {
     });
   }
 
-  toggleMinimize(windowId, doMinimze= true) {
+  minimize(windowId) {
+    this.toggleMinimize(windowId, true);
+  }
+
+  unMinimize(windowId) {
+    this.toggleMinimize(windowId, false);
+  }
+
+  private toggleMinimize(windowId, doMinimize) {
     const store = this.stateSubject.getValue(),
       window = store.get(windowId);
 
-    if (!window) { return; }
+    if (!window || window.isMinimized == doMinimize) { return; }
 
-    const lastMinimizeState = window.isMinimized;
-    if (lastMinimizeState === doMinimze) { return; }
 
-    window.isMinimized = doMinimze;
+    window.isMinimized = doMinimize;
     store.set(windowId, Object.assign({}, window));
     this.stateSubject.next(store);
   }

@@ -1,17 +1,17 @@
 <div class="app-window"
-     *ngIf="state"
      [style.top]="top"
      [style.bottom]="bottom"
      [style.left]="left"
      [style.right]="right"
-     [style.zIndex]="state.zIndex"
+     [style.zIndex]="zIndex"
      (click)="focusWindow()"
+     [ngClass]="{'minimized': state.isMinimized }"
      #appWindow>
   <div class="top-bar" [id]="state.id"></div>
 
   <div class="controls">
     <div class="window-control close"></div>
-    <div class="window-control minimize"></div>
+    <div class="window-control minimize" (click)="minimize()"></div>
     <div class="window-control fullscreen" (click)="maximize()"></div>
   </div>
 
