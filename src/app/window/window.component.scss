@@ -3,14 +3,13 @@
 $controlSize: 12px;
 $windowRadius: 3px;
 $topBarHeight: 22px;
-$resizeHandleDimension: 15px;
+$resizeHandleDimension: 20px;
 $minimizedDimension: 0;
 $minimizeTransitionTime: .4s;
 $minimizeTransitionType: ease;
 
 .app-window {
   border-radius: $windowRadius;
-  overflow: hidden;
   position: absolute;
   box-shadow: $shadow;
   bottom: auto;
@@ -70,14 +69,14 @@ $minimizeTransitionType: ease;
 
     &.handle-right {
       top: $topBarHeight;
-      right: 0;
+      right: -($resizeHandleDimension / 2);
       bottom: $resizeHandleDimension;
       width: $resizeHandleDimension;
       cursor: col-resize;
     }
 
     &.handle-bottom {
-      bottom: 0;
+      bottom: -($resizeHandleDimension / 2);
       left: 0;
       right: $resizeHandleDimension;
       height: $resizeHandleDimension;
@@ -85,10 +84,10 @@ $minimizeTransitionType: ease;
     }
 
     &.handle-corner {
-      bottom: 0;
-      right: 0;
-      width: $resizeHandleDimension;
-      height: $resizeHandleDimension;
+      bottom: -($resizeHandleDimension / 2);
+      right: -($resizeHandleDimension / 2);
+      width: $resizeHandleDimension * 1.5;
+      height: $resizeHandleDimension * 1.5;
       cursor: nwse-resize;
     }
   }
@@ -99,7 +98,6 @@ $minimizeTransitionType: ease;
     left: 0;
     width: 100%;
     height: calc(100% - #{$topBarHeight});
-    // transition:  $minimizeTransitionTime $minimizeTransitionType;
     transition: width $minimizeTransitionTime $minimizeTransitionType,
                   height $minimizeTransitionTime $minimizeTransitionType;
     overflow: hidden;

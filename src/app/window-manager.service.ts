@@ -76,6 +76,14 @@ export class WindowManagerService {
       .subscribe(onUpdate);
   }
 
+  removeWindow(windowId: string) {
+    const store = this.stateSubject.getValue();
+
+    if (store.delete(windowId)) {
+      this.stateSubject.next(store);
+    }
+  }
+
   registerContainer(elm) {
     this.container = elm;
 
@@ -160,7 +168,6 @@ export class WindowManagerService {
         sortedWindows[i].zIndex = i + 1;
       }
     }
-
 
     this.stateSubject.next(store);
   }

@@ -1,13 +1,13 @@
-import { 
-  Component, 
-  ComponentFactoryResolver, 
+import {
+  Component,
+  ComponentFactoryResolver,
   EventEmitter,
-  HostListener, 
+  HostListener,
   Input,
-  OnChanges, 
-  OnInit, 
+  OnChanges,
+  OnDestroy,
   Output,
-  ViewChild  
+  ViewChild
 } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -18,14 +18,14 @@ import { WindowManagerService, WindowState } from '../window-manager.service';
 
 
 const RETRY_INTERVAL_MS = 200;
-const MINIMIZE_ANIMATION_TIME_MS = 250;
+const MINIMIZE_ANIMATION_TIME_MS = 400;
 
 @Component({
   selector: 'app-window',
   templateUrl: './window.component.html',
   styleUrls: ['./window.component.scss']
 })
-export class WindowComponent implements OnChanges {
+export class WindowComponent implements OnChanges, OnDestroy {
   public isAnimating = false;
   private stateSubscription: Subscription;
   private state: WindowState;
@@ -50,6 +50,14 @@ export class WindowComponent implements OnChanges {
     if (!changes.app) { return; }
 
     this.trySetComponent(changes.app.currentValue);
+  }
+
+  ngOnDestroy() {
+    if (this.stateSubscription) {
+      this.stateSubscription.unsubscribe();
+    }
+
+    this.windowManager.removeWindow(this.state.id);
   }
 
   trySetComponent(appType) {

@@ -57,6 +57,12 @@ $dockHeight: 75px;
       &:hover .tooltip-wrapper {
         display: block;
       }
+
+      .fa-file-code-o {
+        font-size: 3.2em !important;
+        position: relative;
+        top: -4px;
+      }
     }
   }
 }
