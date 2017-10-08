@@ -1,9 +1,21 @@
-import { Component, ComponentFactoryResolver, HostListener, OnChanges, OnInit, Input, ViewChild  } from '@angular/core';
+import { 
+  Component, 
+  ComponentFactoryResolver, 
+  EventEmitter,
+  HostListener, 
+  Input,
+  OnChanges, 
+  OnInit, 
+  Output,
+  ViewChild  
+} from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
+import { WindowContentHostDirective } from './windowContentHost.directive';
 import { ApplicationBase } from '../applicationBase';
-import { WindowContentHostDirective } from '../window/windowContentHost.directive';
+import { TaskManagerService } from '../task-manager.service';
 import { WindowManagerService, WindowState } from '../window-manager.service';
+
 
 const RETRY_INTERVAL_MS = 200;
 const MINIMIZE_ANIMATION_TIME_MS = 250;
@@ -13,7 +25,7 @@ const MINIMIZE_ANIMATION_TIME_MS = 250;
   templateUrl: './window.component.html',
   styleUrls: ['./window.component.scss']
 })
-export class WindowComponent implements OnChanges, OnInit {
+export class WindowComponent implements OnChanges {
   public isAnimating = false;
   private stateSubscription: Subscription;
   private state: WindowState;
@@ -24,11 +36,13 @@ export class WindowComponent implements OnChanges, OnInit {
   private lockY = false;
 
   @Input() app: ApplicationBase;
+  @Output() onClose = new EventEmitter<boolean>();
   @ViewChild(WindowContentHostDirective) contentHost: WindowContentHostDirective;
   @ViewChild('appWindow') window;
 
   constructor(
     private resolver: ComponentFactoryResolver,
+    private taskManager: TaskManagerService,
     private windowManager: WindowManagerService
   ) { }
 
@@ -63,10 +77,6 @@ export class WindowComponent implements OnChanges, OnInit {
       }
 
     this.state = state;
-  }
-
-  ngOnInit() {
-
   }
 
   focusWindow() {
@@ -104,6 +114,10 @@ export class WindowComponent implements OnChanges, OnInit {
 
   minimize() {
     this.windowManager.minimize(this.state.id);
+  }
+
+  close() {
+    this.onClose.emit(true);
   }
 
   onResizeStart(evt, lockX= false, lockY= false) {

@@ -10,7 +10,7 @@
   <div class="top-bar" [id]="state.id"></div>
 
   <div class="controls">
-    <div class="window-control close"></div>
+    <div class="window-control close" (click)="close()"></div>
     <div class="window-control minimize" (click)="minimize()"></div>
     <div class="window-control fullscreen" (click)="maximize()"></div>
   </div>
