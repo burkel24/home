@@ -7,7 +7,7 @@
      (click)="focusWindow()"
      [ngClass]="{'minimized': isMinimized, 'animating': isAnimating }"
      #appWindow>
-  <div class="top-bar" [id]="id"></div>
+  <div class="top-bar" [id]="id" [hidden]="isAnimating"></div>
 
   <div class="controls">
     <div class="window-control close" (click)="close()"></div>
