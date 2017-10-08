@@ -1,16 +1,22 @@
 <div class="dock-wrapper">
   <div class="dock-content">
-    <a href="https://github.com/burkel24" target="_blank">
-      <i class="fa fa-github-alt fa-4x"></i>
+    <a *ngFor="let link of links" [href]="link.link" target="_blank" class="dock-link">
+      <div class="tooltip-wrapper">
+        <div class="tooltip">{{ link.tooltip }}</div>
+      </div>
+      <i class="fa fa-4x" [ngClass]="link.iconClass"></i>
     </a>
-    <a href="https://codepen.io/burkel24/" target="_blank">
-      <i class="fa fa-codepen fa-4x"></i>
-    </a>
-    <a href="https://www.instagram.com/burke024/" target="_blank">
-      <i class="fa fa-instagram fa-4x"></i>
-    </a>
-    <a href="https://www.linkedin.com/in/burketlivingston/" target="_blank">
-      <i class="fa fa-linkedin-square fa-4x"></i>
-    </a>
+
+    <div class="divider" *ngIf="minimizedWindows.length"></div>
+
+    <span *ngFor="let window of minimizedWindows"
+          (click)="unminimizeWindow(window.id)"
+          class="window-preview" >
+      <div class="tooltip-wrapper">
+        <div class="tooltip">{{ window.title }}</div>
+      </div>
+
+      <i class="fa fa-4x" [ngClass]="window.iconClass"></i>
+    </span>
   </div>
 </div>

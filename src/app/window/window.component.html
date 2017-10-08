@@ -5,7 +5,7 @@
      [style.right]="right"
      [style.zIndex]="zIndex"
      (click)="focusWindow()"
-     [ngClass]="{'minimized': state.isMinimized }"
+     [ngClass]="{'minimized': state.isMinimized, 'animating': isAnimating }"
      #appWindow>
   <div class="top-bar" [id]="state.id"></div>
 

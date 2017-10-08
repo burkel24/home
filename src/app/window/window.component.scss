@@ -5,7 +5,7 @@ $windowRadius: 3px;
 $topBarHeight: 22px;
 $resizeHandleDimension: 15px;
 $minimizedDimension: 0;
-$minimizeTransitionTime: .25s;
+$minimizeTransitionTime: .4s;
 $minimizeTransitionType: ease;
 
 .app-window {
@@ -16,6 +16,10 @@ $minimizeTransitionType: ease;
   bottom: auto;
   transform: translate(0, 0);
   transition: transform $minimizeTransitionTime $minimizeTransitionType;
+
+  &.draggable-mirror {
+    transition: none !important;
+  }
 
   &.draggable-source--is-dragging {
     visibility: hidden;
@@ -104,8 +108,7 @@ $minimizeTransitionType: ease;
 
   &.minimized {
     box-shadow: none;
-    bottom: -50px;
-    transform: translate(50%, 100%);
+    transform: translate(50vh, 100vh);
 
     .content {
       height: $minimizedDimension; 
@@ -115,6 +118,10 @@ $minimizeTransitionType: ease;
     .controls, .top-bar {
       visibility: hidden;
     }
+  }
+
+  &.animating {
+    box-shadow: none;
   }
 
   @media(max-width: $mobileMaxWidth) {

@@ -8,7 +8,6 @@ import { ApplicationBase } from '../applicationBase';
   styleUrls: ['./projects.component.scss']
 })
 export class ProjectsComponent extends ApplicationBase implements OnInit {
-
   ngOnInit() {
   }
 

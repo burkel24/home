@@ -6,6 +6,7 @@ import { WindowContentHostDirective } from '../window/windowContentHost.directiv
 import { WindowManagerService, WindowState } from '../window-manager.service';
 
 const RETRY_INTERVAL_MS = 200;
+const MINIMIZE_ANIMATION_TIME_MS = 250;
 
 @Component({
   selector: 'app-window',
@@ -13,6 +14,7 @@ const RETRY_INTERVAL_MS = 200;
   styleUrls: ['./window.component.scss']
 })
 export class WindowComponent implements OnChanges, OnInit {
+  public isAnimating = false;
   private stateSubscription: Subscription;
   private state: WindowState;
   private tempState: WindowState;
@@ -46,12 +48,25 @@ export class WindowComponent implements OnChanges, OnInit {
 
     hostViewRef.clear();
     this.componentRef = hostViewRef.createComponent(factory);
+
+    this.stateSubscription = this.windowManager.registerWindow(
+      appType.appName,
+      appType.iconClass,
+      (state: WindowState) => this.updateState(state)
+    );
+  }
+
+  private updateState(state: WindowState) {
+    if (this.state && state.isMinimized != this.state.isMinimized) {
+        this.isAnimating = true;
+        setTimeout(() => this.isAnimating = false, MINIMIZE_ANIMATION_TIME_MS);
+      }
+
+    this.state = state;
   }
 
   ngOnInit() {
-    this.stateSubscription = this.windowManager.registerWindow(state => {
-      this.state = state;
-    });
+
   }
 
   focusWindow() {

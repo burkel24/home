@@ -44,12 +44,14 @@ export class WindowManagerService {
     return { top, bottom, left, right };
   }
 
-  registerWindow(onUpdate: (WindowState) => void): Subscription {
+  registerWindow(title: string, iconClass: string, onUpdate: (WindowState) => void): Subscription {
     const id = Math.floor(Date.now() * Math.random()).toString();
     const store = this.stateSubject.getValue();
 
     store.set(id, {
       id,
+      title,
+      iconClass,
       zIndex: 1,
       isMinimized: false,
       top: 50,
@@ -126,8 +128,10 @@ export class WindowManagerService {
     if (!window || window.isMinimized == doMinimize) { return; }
 
 
-    window.isMinimized = doMinimize;
-    store.set(windowId, Object.assign({}, window));
+    store.set(windowId, Object.assign({}, window, {
+      isMinimized: doMinimize
+    }));
+
     this.stateSubject.next(store);
   }
 
@@ -222,6 +226,8 @@ export interface WindowState {
   zIndex: number;
   isMinimized: boolean;
   id: string;
+  title: string;
+  iconClass: string;
   top: number;
   bottom: number;
   left: number;
