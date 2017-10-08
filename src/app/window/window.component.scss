@@ -1,15 +1,19 @@
 @import '../../styles/_variables';
 
-$controlSize: 12px;
 $windowRadius: 3px;
+
+$controlSize: 12px;
 $topBarHeight: 22px;
+
 $resizeHandleDimension: 20px;
+
 $minimizedDimension: 0;
 $minimizeTransitionTime: .4s;
 $minimizeTransitionType: ease;
 
 .app-window {
   border-radius: $windowRadius;
+  overflow: hidden;
   position: absolute;
   box-shadow: $shadow;
   bottom: auto;
@@ -122,11 +126,7 @@ $minimizeTransitionType: ease;
     box-shadow: none;
   }
 
-  @media(max-width: $mobileMaxWidth) {
+  @media(max-width: $tabletMaxWidth) {
     box-shadow: $mobileShadow;
-    width: 100%;
-    left: 0;
-    margin-left: 0;
-    top: 100px;
   }
 }

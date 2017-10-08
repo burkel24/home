@@ -1,16 +1,20 @@
 <div class="dock-wrapper">
   <div class="dock-content">
-    <a *ngFor="let link of links" [href]="link.link" target="_blank" class="dock-link">
+    <div *ngFor="let link of links" 
+         (click)="open(link.link)"
+         (touchend)="open(link.link)"
+         class="dock-link">
       <div class="tooltip-wrapper">
         <div class="tooltip">{{ link.tooltip }}</div>
       </div>
       <i class="fa fa-4x" [ngClass]="link.iconClass"></i>
-    </a>
+    </div>
 
     <div class="divider" *ngIf="minimizedWindows.length"></div>
 
     <span *ngFor="let window of minimizedWindows"
           (click)="unminimizeWindow(window.id)"
+          (touchend)="unminimizeWindow(window.id)"
           class="window-preview" >
       <div class="tooltip-wrapper">
         <div class="tooltip">{{ window.title }}</div>

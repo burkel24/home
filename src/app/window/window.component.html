@@ -5,14 +5,26 @@
      [style.right]="right"
      [style.zIndex]="zIndex"
      (click)="focusWindow()"
+     (touchend)="focusWindow()"
      [ngClass]="{'minimized': isMinimized, 'animating': isAnimating }"
      #appWindow>
   <div class="top-bar" [id]="id" [hidden]="isAnimating"></div>
 
   <div class="controls">
-    <div class="window-control close" (click)="close()"></div>
-    <div class="window-control minimize" (click)="minimize()"></div>
-    <div class="window-control fullscreen" (click)="maximize()"></div>
+    <div class="window-control close" 
+        (click)="close()"
+        (touchend)="close()">
+    </div>
+    
+    <div class="window-control minimize" 
+         (click)="minimize()"
+         (touchend)="minimize()">           
+    </div>
+
+    <div class="window-control fullscreen" 
+         (click)="maximize()"
+         (touchend)="maximize()">
+    </div>
   </div>
 
   <div class="content">
@@ -20,13 +32,16 @@
   </div>
 
   <div class="handle handle-right" 
-       (mousedown)="onResizeStart($event, false, true)">
+       (mousedown)="onResizeStart($event, false, true)"
+       (touchstart)="onResizeStart($event, false, true)">
      
    </div>
   <div class="handle handle-bottom" 
-       (mousedown)="onResizeStart($event, true)">
+       (mousedown)="onResizeStart($event, true)"
+       (touchstart)="onResizeStart($event, true)">
   </div>
   <div class="handle handle-corner" 
-       (mousedown)="onResizeStart($event)">
+       (mousedown)="onResizeStart($event)"
+       (touchstart)="onResizeStart($event)">
   </div>
 </div>

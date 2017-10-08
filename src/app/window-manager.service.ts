@@ -5,6 +5,7 @@ import { Draggable } from '@shopify/draggable';
 
 const UPDATE_THROTTLE_WINDOW_MS = 50;
 const MINIMUM_DIMENSION_PX = 250;
+const WINDOW_PADDING_PX = 25;
 
 @Injectable()
 export class WindowManagerService {
@@ -17,28 +18,32 @@ export class WindowManagerService {
   static snapToContainer(window, container) {
     let { top, bottom, left, right } = window;
 
-    if (top < container.top) {
-      const offset = container.top - top;
-      top = container.top;
-      bottom = bottom + offset > container.bottomn ? container.bottom : bottom + offset;
+    if (top < container.top + WINDOW_PADDING_PX) {
+      const offset = container.top - top + WINDOW_PADDING_PX;
+      top = container.top + WINDOW_PADDING_PX;
+      bottom = bottom + offset > container.bottomn - WINDOW_PADDING_PX ?
+        container.bottom - WINDOW_PADDING_PX : bottom + offset;
     }
 
-    if (bottom > container.bottom) {
-      const offset = bottom - container.bottom;
-      bottom = container.bottom;
-      top = top - offset < container.top ? container.top : top - offset;
+    if (bottom > container.bottom - WINDOW_PADDING_PX) {
+      const offset = bottom - container.bottom - WINDOW_PADDING_PX;
+      bottom = container.bottom - WINDOW_PADDING_PX;
+      top = top - offset < container.top + WINDOW_PADDING_PX ?
+        container.top + WINDOW_PADDING_PX : top - offset;
     }
 
-    if (left < container.left) {
-      const offset = container.left - left;
-      left = container.left;
-      right = right + offset > container.right ? container.right : right + offset;
+    if (left < container.left + WINDOW_PADDING_PX) {
+      const offset = container.left - left + WINDOW_PADDING_PX;
+      left = container.left + WINDOW_PADDING_PX;
+      right = right + offset > container.right - WINDOW_PADDING_PX ?
+        container.right - WINDOW_PADDING_PX : right + offset;
     }
 
-    if (right > container.right) {
-      const offset = right - container.right;
-      right = container.right;
-      left = left - offset < container.left ? container.left : left - offset;
+    if (right > container.right - WINDOW_PADDING_PX) {
+      const offset = right - container.right - WINDOW_PADDING_PX;
+      right = container.right - WINDOW_PADDING_PX;
+      left = left - offset < container.left + WINDOW_PADDING_PX ?
+        container.left + WINDOW_PADDING_PX : left - offset;
     }
 
     return { top, bottom, left, right };
@@ -182,10 +187,10 @@ export class WindowManagerService {
       {},
       window,
       {
-        top: 0,
-        bottom: 0,
-        left: 0,
-        right: 0
+        top: WINDOW_PADDING_PX,
+        bottom: WINDOW_PADDING_PX,
+        left: WINDOW_PADDING_PX,
+        right: WINDOW_PADDING_PX
       }
     ));
 
@@ -199,19 +204,19 @@ export class WindowManagerService {
     if (!window) { return; }
 
     if (dx && (elm.clientWidth + dx) >= MINIMUM_DIMENSION_PX) {
-      if (window.right - dx >= 0) {
+      if (window.right - dx >= WINDOW_PADDING_PX) {
         window.right -= dx;
       } else {
-        window.right = 0;
+        window.right = WINDOW_PADDING_PX;
       }
     }
 
 
     if (dy && (elm.clientHeight + dy) >= MINIMUM_DIMENSION_PX) {
-      if (window.bottom - dy >= 0) {
+      if (window.bottom - dy >= WINDOW_PADDING_PX) {
         window.bottom -= dy;
       } else {
-        window.bottom = 0;
+        window.bottom = WINDOW_PADDING_PX;
       }
     }
 

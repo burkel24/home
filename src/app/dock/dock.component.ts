@@ -36,6 +36,10 @@ export class DockComponent implements OnInit {
     private WindowManagerService: WindowManagerService
   ) { }
 
+  open(link) {
+    window.open(link, '_blank');
+  }
+
   ngOnInit() {
     this.WindowManagerService.list
       .map(windows => windows.filter(aWindow => aWindow.isMinimized))
