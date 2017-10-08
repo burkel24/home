@@ -8,6 +8,8 @@ import { ApplicationBase } from '../applicationBase';
   styleUrls: ['./projects.component.scss']
 })
 export class ProjectsComponent extends ApplicationBase implements OnInit {
+  static appName = 'Projects';
+  static iconClass = 'fa-file-code-o';
 
   ngOnInit() {
   }

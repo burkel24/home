@@ -44,12 +44,14 @@ export class WindowManagerService {
     return { top, bottom, left, right };
   }
 
-  registerWindow(onUpdate: (WindowState) => void): Subscription {
+  registerWindow(title: string, iconClass: string, onUpdate: (WindowState) => void): Subscription {
     const id = Math.floor(Date.now() * Math.random()).toString();
     const store = this.stateSubject.getValue();
 
     store.set(id, {
       id,
+      title,
+      iconClass,
       zIndex: 1,
       isMinimized: false,
       top: 50,
@@ -59,6 +61,7 @@ export class WindowManagerService {
     });
 
     this.stateSubject.next(store);
+    this.focusWindow(id);
 
     let previousState = null;
     return this.stateSubject.asObservable()
@@ -73,6 +76,14 @@ export class WindowManagerService {
       .subscribe(onUpdate);
   }
 
+  removeWindow(windowId: string) {
+    const store = this.stateSubject.getValue();
+
+    if (store.delete(windowId)) {
+      this.stateSubject.next(store);
+    }
+  }
+
   registerContainer(elm) {
     this.container = elm;
 
@@ -83,7 +94,10 @@ export class WindowManagerService {
       classes: ['dragging'],
       handle: '.top-bar'
     })
-    .on('drag:start', evt => targetId = evt.originalEvent.target.id)
+    .on('drag:start', evt => {
+      targetId = evt.originalEvent.target.id;
+      this.focusWindow(targetId);
+    })
     .on('drag:move', evt => containerElm = evt.sourceContainer)
     .on('drag:stop', evt => {
       const store = this.stateSubject.getValue(),
@@ -107,17 +121,74 @@ export class WindowManagerService {
     });
   }
 
-  toggleMinimize(windowId, doMinimze= true) {
+  minimize(windowId) {
+    this.toggleMinimize(windowId, true);
+  }
+
+  unMinimize(windowId) {
+    this.toggleMinimize(windowId, false);
+  }
+
+  private toggleMinimize(windowId, doMinimize) {
+    const store = this.stateSubject.getValue(),
+      window = store.get(windowId);
+
+    if (!window || window.isMinimized == doMinimize) { return; }
+
+
+    store.set(windowId, Object.assign({}, window, {
+      isMinimized: doMinimize
+    }));
+
+    this.stateSubject.next(store);
+  }
+
+  focusWindow(windowId) {
     const store = this.stateSubject.getValue(),
       window = store.get(windowId);
 
     if (!window) { return; }
 
-    const lastMinimizeState = window.isMinimized;
-    if (lastMinimizeState === doMinimze) { return; }
+    const sortedWindows = Array.from(store.values()).sort((a, b) => {
+      return a.zIndex < b.zIndex ? 1 : -1;
+    });
 
-    window.isMinimized = doMinimze;
-    store.set(windowId, Object.assign({}, window));
+    const windowIndex = sortedWindows.findIndex(
+      aWindow => aWindow.id === windowId
+    );
+
+    if (windowIndex !== sortedWindows.length - 1) {
+      window.zIndex = sortedWindows.length;
+
+      for (let i = sortedWindows.length - 1; i > windowIndex; i--) {
+        sortedWindows[i].zIndex = i;
+      }
+    } else if (window.zIndex != sortedWindows.length) {
+      for (let i = sortedWindows.length - 2; i >= 0; i--) {
+        sortedWindows[i].zIndex = i + 1;
+      }
+    }
+
+    this.stateSubject.next(store);
+  }
+
+  maximize(windowId) {
+    const store = this.stateSubject.getValue(),
+      window = store.get(windowId);
+
+    if (!window) { return; }
+
+    store.set(windowId, Object.assign(
+      {},
+      window,
+      {
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0
+      }
+    ));
+
     this.stateSubject.next(store);
   }
 
@@ -162,6 +233,8 @@ export interface WindowState {
   zIndex: number;
   isMinimized: boolean;
   id: string;
+  title: string;
+  iconClass: string;
   top: number;
   bottom: number;
   left: number;

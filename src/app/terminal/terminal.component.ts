@@ -8,6 +8,9 @@ import { ApplicationBase } from '../applicationBase';
   styleUrls: ['./terminal.component.scss']
 })
 export class TerminalComponent extends ApplicationBase implements OnInit {
+  static appName = 'Terminal';
+  static iconClass = 'fa-terminal';
+
   public output: string[] = [];
 
   ngOnInit() {

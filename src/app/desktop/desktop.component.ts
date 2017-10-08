@@ -28,6 +28,10 @@ export class DesktopComponent implements AfterViewInit, OnInit {
       });
   }
 
+  endTask(task) {
+    this.TaskManagerService.endTask(task.id);
+  }
+
   ngOnInit() {
     this.TaskManagerService.subscribeToTaskList(tasks => this.tasks = tasks);
 

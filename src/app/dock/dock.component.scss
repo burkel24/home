@@ -17,11 +17,52 @@ $dockHeight: 75px;
     margin-top: -$dockHeight;
     padding: 5px 10px 10px;
     background: transparentize($mediumGrey, .2);
-    border-radius: 3px 0 0 3px;
+    border-radius: 3px 3px 0 0;
     display: inline-block;
 
-    a {
+    .divider {
+      display: inline-block;
+      width: 2px;
+      margin: 0 10px -4px 10px;
+      background: darken($mediumGrey, 25%);
+      height: calc(100% - 10px);
+    }
+
+
+    .dock-link, .window-preview {
       margin: 0 7px;
+      position: relative;
+      width: 55px;
+      height: 65px;
+      cursor: pointer;
+      display: inline-block;
+
+      .tooltip-wrapper {
+        display: none;
+        position: absolute;
+        top: -37px;
+        width: 100px;
+        left: 50%;
+        margin-left: -50px;
+      }
+
+      .tooltip {
+        display: inline-block;
+        margin: 0 auto;
+        padding: 3px 5px;
+        background: transparentize($lightGrey, .2);
+        border-radius: 3px;
+      }
+
+      &:hover .tooltip-wrapper {
+        display: block;
+      }
+
+      .fa-file-code-o {
+        font-size: 3.2em !important;
+        position: relative;
+        top: -4px;
+      }
     }
   }
 }

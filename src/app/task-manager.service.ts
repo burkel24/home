@@ -25,6 +25,14 @@ export class TaskManagerService {
 
     this.store.next(data);
   }
+
+  endTask(taskId) {
+    const data = this.store.getValue();
+
+    if (data.delete(taskId)) {
+      this.store.next(data);
+    }
+  }
 }
 
 export interface Task {

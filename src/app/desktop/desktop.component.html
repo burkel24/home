@@ -2,7 +2,7 @@
   <app-folders></app-folders>
   <!-- <app-terminal></app-terminal> -->
   <div *ngFor="let task of tasks">
-    <app-window [app]="task.component"></app-window>
+    <app-window [app]="task.component" (onClose)="endTask(task)"></app-window>
   </div>
   <app-dock></app-dock>
 </div>

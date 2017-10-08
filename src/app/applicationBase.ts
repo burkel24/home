@@ -1,3 +1,4 @@
 export class ApplicationBase {
-  constructor() { }
+  static appName = 'App';
+  static iconClass = '';
 }

@@ -3,25 +3,35 @@
 $controlSize: 12px;
 $windowRadius: 3px;
 $topBarHeight: 22px;
-$resizeHandleDimension: 15px;
+$resizeHandleDimension: 20px;
+$minimizedDimension: 0;
+$minimizeTransitionTime: .4s;
+$minimizeTransitionType: ease;
 
 .app-window {
   border-radius: $windowRadius;
-  overflow: hidden;
   position: absolute;
   box-shadow: $shadow;
+  bottom: auto;
+  transform: translate(0, 0);
+  transition: transform $minimizeTransitionTime $minimizeTransitionType;
+
+  &.draggable-mirror {
+    transition: none !important;
+  }
 
   &.draggable-source--is-dragging {
     visibility: hidden;
   }
 
-  .top-bar {
-    background: $mediumGrey;
+  .controls {
+    top: 0;
+    left: 0;
     height: $topBarHeight;
-    cursor: move;
-    opacity: .9;
+    position: absolute;
 
     .window-control {
+      display: inline-block;
       opacity: 1;
       user-select: none;
       height: $controlSize;
@@ -29,6 +39,7 @@ $resizeHandleDimension: 15px;
       border-radius: $controlSize + 8;
       margin: 5px 3px;
       cursor: pointer;
+      z-index: 4;
 
       &.close {
         background: red;
@@ -44,20 +55,28 @@ $resizeHandleDimension: 15px;
     }
   }
 
+  .top-bar {
+    background: $mediumGrey;
+    height: $topBarHeight;
+    cursor: move;
+    z-index: 3;
+    opacity: .9;
+  }
+
   .handle {
     position: absolute;
     z-index: 10;
 
     &.handle-right {
       top: $topBarHeight;
-      right: 0;
+      right: -($resizeHandleDimension / 2);
       bottom: $resizeHandleDimension;
       width: $resizeHandleDimension;
       cursor: col-resize;
     }
 
     &.handle-bottom {
-      bottom: 0;
+      bottom: -($resizeHandleDimension / 2);
       left: 0;
       right: $resizeHandleDimension;
       height: $resizeHandleDimension;
@@ -65,10 +84,10 @@ $resizeHandleDimension: 15px;
     }
 
     &.handle-corner {
-      bottom: 0;
-      right: 0;
-      width: $resizeHandleDimension;
-      height: $resizeHandleDimension;
+      bottom: -($resizeHandleDimension / 2);
+      right: -($resizeHandleDimension / 2);
+      width: $resizeHandleDimension * 1.5;
+      height: $resizeHandleDimension * 1.5;
       cursor: nwse-resize;
     }
   }
@@ -76,10 +95,31 @@ $resizeHandleDimension: 15px;
   .content {
     position: absolute;
     top: $topBarHeight;
-    bottom: 0;
     left: 0;
-    right: 0;
-    z-index: 3;
+    width: 100%;
+    height: calc(100% - #{$topBarHeight});
+    transition: width $minimizeTransitionTime $minimizeTransitionType,
+                  height $minimizeTransitionTime $minimizeTransitionType;
+    overflow: hidden;
+  }
+
+
+  &.minimized {
+    box-shadow: none;
+    transform: translate(50vh, 100vh);
+
+    .content {
+      height: $minimizedDimension; 
+      width: $minimizedDimension;
+    }
+
+    .controls, .top-bar {
+      visibility: hidden;
+    }
+  }
+
+  &.animating {
+    box-shadow: none;
   }
 
   @media(max-width: $mobileMaxWidth) {
