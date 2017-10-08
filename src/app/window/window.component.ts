@@ -91,6 +91,16 @@ export class WindowComponent implements OnChanges, OnDestroy {
     this.windowManager.focusWindow(this.state.id);
   }
 
+  get isMinimized() {
+    if (!this.state) { return; }
+    return this.state.isMinimized;
+  }
+
+  get id() {
+    if (!this.state) { return; }
+    return this.state.id;
+  }
+
   get top() {
     if (!this.state) { return; }
     return `${this.tempState ? this.tempState.top : this.state.top }px`;
