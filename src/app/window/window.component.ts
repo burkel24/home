@@ -143,17 +143,28 @@ export class WindowComponent implements OnChanges, OnDestroy {
     this.lockX = lockX;
     this.lockY = lockY;
 
-    this.lastMouseCoords = {
-      x: evt.clientX,
-      y: evt.clientY
-    };
+    if (evt instanceof TouchEvent) {
+      const touch = evt.touches[0];
+      this.lastMouseCoords = { x: touch.clientX, y: touch.clientY };
+    } else {
+      this.lastMouseCoords = { x: evt.clientX, y: evt.clientY };
+    }
   }
 
   @HostListener('document:mousemove', ['$event'])
   onMouseMove(evt) {
     if (!this.tempState || !this.lastMouseCoords) { return; }
+    this.resize(evt.clientX, evt.clientY);
+  }
 
-    const mouseCoords = { x: evt.clientX, y: evt.clientY },
+  @HostListener('document:touchmove', ['$event'])
+  onTouchMove(evt) {
+    if (!this.tempState || !this.lastMouseCoords) { return; }
+    this.resize(evt.touches[0].clientX, evt.touches[0].clientY);
+  }
+
+  private resize(clientX, clientY) {
+    const mouseCoords = { x: clientX, y: clientY },
       dx = this.lockX ? 0 : mouseCoords.x - this.lastMouseCoords.x,
       dy = this.lockY ? 0 : mouseCoords.y - this.lastMouseCoords.y;
 
@@ -172,7 +183,13 @@ export class WindowComponent implements OnChanges, OnDestroy {
   @HostListener('document:mouseup', [])
   onMouseUp() {
     if (!this.tempState) { return; }
+    this.tempState = null;
+    this.lastMouseCoords = null;
+  }
 
+  @HostListener('document:touchend', [])
+  onTouchStop() {
+    if (!this.tempState) { return; }
     this.tempState = null;
     this.lastMouseCoords = null;
   }
