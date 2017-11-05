@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Inject, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 
 import { URL_MAP } from '../app.module';
@@ -10,7 +10,7 @@ import { WindowManagerService } from '../window-manager.service';
   templateUrl: './desktop.component.html',
   styleUrls: ['./desktop.component.scss']
 })
-export class DesktopComponent implements AfterViewInit, OnInit {
+export class DesktopComponent implements AfterViewInit {
   public tasks: Task[] = [];
 
   constructor(
@@ -32,13 +32,15 @@ export class DesktopComponent implements AfterViewInit, OnInit {
     this.TaskManagerService.endTask(task.id);
   }
 
-  ngOnInit() {
-    this.TaskManagerService.subscribeToTaskList(tasks => this.tasks = tasks);
-
-  }
-
   ngAfterViewInit() {
-    this.WindowManagerService.registerContainer(this.ElementRef.nativeElement);
+    const container = this.ElementRef.nativeElement.querySelector('.desktop');
+    this.WindowManagerService.registerContainer(container);
+
+    setTimeout(() => {
+      this.TaskManagerService.subscribeToTaskList(tasks => {
+        this.tasks = tasks;
+      });
+    });
   }
 
 }

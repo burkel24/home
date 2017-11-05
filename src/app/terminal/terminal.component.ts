@@ -17,17 +17,17 @@ export class TerminalComponent extends ApplicationBase implements OnInit {
     this.schedule(`Hey, my name is Burke.`, 1);
     this.schedule(`I'm a Full-Stack Engineer based in Brooklyn, New York.`, 3);
     this.schedule(`…`, 4.5);
-    
+
     this.schedule(
-      `I currently work as a Front-End Engineer at 
-      <a href="https://rubiconmd.com" target="_blank">RubiconMD</a>`, 
+      `I currently work as a Front-End Engineer at
+      <a href="https://rubiconmd.com" target="_blank">RubiconMD</a>`,
       5.5
     );
     this.schedule(`…`, 6.5);
 
     this.schedule(
-      `Check out my links below or 
-      <a href="mailto:burkel24@gmail.com">send me an email</a>`, 
+      `Check out my links below or
+      <a href="mailto:burkel24@gmail.com">send me an email</a>`,
       8
     );
   }

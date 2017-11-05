@@ -50,8 +50,14 @@ export class WindowManagerService {
   }
 
   registerWindow(title: string, iconClass: string, onUpdate: (WindowState) => void): Subscription {
-    const id = Math.floor(Date.now() * Math.random()).toString();
-    const store = this.stateSubject.getValue();
+    const id = Math.floor(Date.now() * Math.random()).toString(),
+      store = this.stateSubject.getValue();
+
+    // Center the window at an appropriate width
+    const boundingRect = this.container.getBoundingClientRect(),
+      widthScalar  = boundingRect.width > 1100 ? .6 : .9,
+      initialWidth = boundingRect.width * widthScalar,
+      sidePosition = (boundingRect.width - initialWidth) / 2;
 
     store.set(id, {
       id,
@@ -59,10 +65,10 @@ export class WindowManagerService {
       iconClass,
       zIndex: 1,
       isMinimized: false,
-      top: 50,
+      top: 100,
       bottom: 150,
-      left: 150,
-      right: 150
+      left: sidePosition,
+      right: sidePosition
     });
 
     this.stateSubject.next(store);
@@ -94,7 +100,7 @@ export class WindowManagerService {
 
     let targetId, containerElm;
 
-    new Draggable([ elm.querySelector('.desktop') ], {
+    new Draggable([ this.container ], {
       draggable: '.app-window',
       classes: ['dragging'],
       handle: '.top-bar'
@@ -111,7 +117,10 @@ export class WindowManagerService {
       if (!state || !containerElm) { return; }
 
       const containerBox = containerElm.getBoundingClientRect(),
-        snappedBox = WindowManagerService.snapToContainer(evt.mirror.getBoundingClientRect(), containerBox);
+        snappedBox = WindowManagerService.snapToContainer(
+          evt.mirror.getBoundingClientRect(),
+          containerBox
+        );
 
       store.set(targetId, Object.assign({}, state, {
         top: snappedBox.top - containerBox.top,
