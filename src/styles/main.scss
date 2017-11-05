@@ -1,13 +1,13 @@
 @import '_variables';
 
 body {
-  background: $lightBlue;
+  background: linear-gradient(to right, $lightBlue, $teal);
   padding: 0;
   margin: 0;
 }
 
 * {
-  color: $primaryBlue;
+  color: $darkBlue;
   font-family: "Helvetica Neue";
   font-weight: 400;
   box-sizing: border-box;
@@ -19,10 +19,5 @@ strong {
 }
 
 a {
-  text-decoration: none;
-  color: $primaryBlue;
-
-  &:visited {
-    color: $primaryBlue;
-  }
+  color: $lightBlue;
 }

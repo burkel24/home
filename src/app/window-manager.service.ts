@@ -55,9 +55,9 @@ export class WindowManagerService {
       zIndex: 1,
       isMinimized: false,
       top: 50,
-      bottom: 50,
-      left: 50,
-      right: 50
+      bottom: 150,
+      left: 150,
+      right: 150
     });
 
     this.stateSubject.next(store);

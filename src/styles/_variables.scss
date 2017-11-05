@@ -1,10 +1,11 @@
-$primaryBlue: #394455;
+$darkBlue: #394455;
 $secondaryBlue: #4465A6;
-$lightBlue: #A5C4DB;
+$lightBlue: rgb(131, 164, 212);
+$teal: rgb(182, 251, 255);
 $lightGrey: #E9EDF0;
 $white: #FFFFFF;
 $mediumGrey: #C8CCD5;
 
-$shadow: 10px 10px 0px 0px $primaryBlue;
-$mobileShadow: 0 20px 0px -10px $primaryBlue;
+$shadow: 10px 10px 0px 0px $darkBlue;
+$mobileShadow: 0 20px 0px -10px $darkBlue;
 $mobileMaxWidth: 765px;

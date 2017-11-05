@@ -1,5 +1,5 @@
 <div class="terminal">
   <div class="entry" *ngFor="let line of output">
-    {{ line }}
+    <span [innerHtml]="line"></span>
   </div>
 </div>

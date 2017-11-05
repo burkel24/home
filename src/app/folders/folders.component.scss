@@ -5,6 +5,14 @@
   display: inline-block;
 
   .folder {
+    span {
+      color: $white;  
+    }
+
+    .fa {
+      color: $white;
+    }
+
     .fa-folder-open-o {
       display: none;
     }

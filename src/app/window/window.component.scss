@@ -3,7 +3,7 @@
 $controlSize: 12px;
 $windowRadius: 3px;
 $topBarHeight: 22px;
-$resizeHandleDimension: 20px;
+$resizeHandleDimension: 25px;
 $minimizedDimension: 0;
 $minimizeTransitionTime: .4s;
 $minimizeTransitionType: ease;
@@ -15,7 +15,8 @@ $minimizeTransitionType: ease;
   bottom: auto;
   transform: translate(0, 0);
   transition: transform $minimizeTransitionTime $minimizeTransitionType;
-
+  overflow: hidden;
+  
   &.draggable-mirror {
     transition: none !important;
   }
