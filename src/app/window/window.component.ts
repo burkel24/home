@@ -79,7 +79,7 @@ export class WindowComponent implements OnChanges, OnDestroy {
   }
 
   private updateState(state: WindowState) {
-    if (this.state && state.isMinimized != this.state.isMinimized) {
+    if (this.state && state.isMinimized !== this.state.isMinimized) {
         this.isAnimating = true;
         setTimeout(() => this.isAnimating = false, MINIMIZE_ANIMATION_TIME_MS);
       }

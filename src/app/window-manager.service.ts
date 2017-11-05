@@ -147,7 +147,7 @@ export class WindowManagerService {
     const store = this.stateSubject.getValue(),
       window = store.get(windowId);
 
-    if (!window || window.isMinimized == doMinimize) { return; }
+    if (!window || window.isMinimized === doMinimize) { return; }
 
 
     store.set(windowId, Object.assign({}, window, {
@@ -177,7 +177,7 @@ export class WindowManagerService {
       for (let i = sortedWindows.length - 1; i > windowIndex; i--) {
         sortedWindows[i].zIndex = i;
       }
-    } else if (window.zIndex != sortedWindows.length) {
+    } else if (window.zIndex !== sortedWindows.length) {
       for (let i = sortedWindows.length - 2; i >= 0; i--) {
         sortedWindows[i].zIndex = i + 1;
       }
