@@ -20,7 +20,7 @@ export class TerminalComponent extends ApplicationBase implements OnInit {
 
     this.schedule(
       `I currently work as a Front-End Engineer at
-      <a href="https://rubiconmd.com" target="_blank">RubiconMD</a>`,
+      <a href="https://www.blueprintincome.com/" target="_blank">Blueprint Income</a>`,
       5.5
     );
     this.schedule(`…`, 6.5);
