@@ -1,8 +1,0 @@
-<div class="desktop">
-  <app-folders></app-folders>
-
-  <div *ngFor="let task of tasks">
-    <app-window [app]="task.component" (onClose)="endTask(task)"></app-window>
-  </div>
-  <app-dock></app-dock>
-</div>
