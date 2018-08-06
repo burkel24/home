@@ -1,0 +1,16 @@
+@import "./variables.scss";
+
+.navbar {
+  background: #0c2461;
+  box-shadow: 0px 8px 20px 0px $shadowColor;
+  color: #FFF;
+  height: 60px;
+  position: sticky;
+  top: 0;
+
+  a {
+    text-decoration: none;
+    color: #FFF;
+    font-weight: 300;
+  }
+}

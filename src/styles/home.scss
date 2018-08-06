@@ -1,0 +1,16 @@
+@import "./variables.scss";
+
+$spriteSize: 125px;
+
+.home {
+  background: $sky;
+
+  .sprite {
+    background-image: url("https://vignette.wikia.nocookie.net/teamfourstar/images/a/a8/Krillin_Sanchez.png");
+    background-size: cover;
+    background-position: center;
+    border-radius: $spriteSize;
+    height: $spriteSize;
+    width: $spriteSize;
+  }
+}
